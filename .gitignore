@@ -1,0 +1,49 @@
+# Temporary directories at any depth, including under test/
+tmp/
+temp/
+%OUT%/
+*.class
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Generated frontend and local agent files
+**/node_modules/
+frontend/dist/
+.superpowers/
+
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/

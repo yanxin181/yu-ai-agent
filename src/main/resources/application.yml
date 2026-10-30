@@ -1,0 +1,68 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: yu-ai-agent
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY}
+      chat:
+        base-url: https://llm-5rsjqa77vo945eej.cn-beijing.maas.aliyuncs.com
+        options:
+          model: qwen3.8-max
+          # DeepSeek-V4.1-Flash-1017 的官方示例使用 multimodal-generation 接口。
+          multi-model: true
+#          enable-thinking: true
+    mcp:
+      client:
+        # MCP 服务是可选的。未启动本地 MCP 服务时，不应阻塞主应用启动。
+        enabled: ${MCP_CLIENT_ENABLED:false}
+        sse:
+          connections:
+            server1:
+              url: http://localhost:8127
+              sse-endpoint: /sse
+  #        stdio:
+#          servers-configuration: classpath:mcp-servers.json
+# 数据库配置
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    ai:
+      vectorstore:
+        pgvector:
+          index-type: HNSW
+#          dimensions: 1536
+          distance-type: COSINE_DISTANCE
+          max-document-batch-size: 10
+
+server:
+  port: 8123
+  servlet:
+    context-path: /api
+
+# springdoc-openapi???? ??????
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.example.yuaiagent.controller
+# knife4j???????????????
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor: debug
+
+# searchapikey
+search-api:
+  api-key: ${SEARCH_API_KEY}
